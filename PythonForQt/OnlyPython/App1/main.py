@@ -14,7 +14,7 @@ class MyWindow(QMainWindow):
         # On change le titre de la fenêtre.
         self.setWindowTitle("Ma première fenêtre Qt avec Python")
         # On change l'icône affichée dans le bandeau supérieur de la fenêtre.
-        self.setWindowIcon(QIcon("icons/yes.png"))
+        self.setWindowIcon(QIcon("icons/_active__cut.png"))
         # On retaille la fenêtre (800 pixels de large et 600 en hauteur).
         self.resize(800, 600)
 
