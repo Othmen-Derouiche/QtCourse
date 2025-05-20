@@ -1,0 +1,38 @@
+
+#centralArea {
+    background: gray url("img.png") no-repeat center;
+    /*min-width: 800px;*/
+}
+/*
+#centralArea {
+    background-image: url("img.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-origin: content;
+    background-attachment: scroll;
+    background-size: cover;
+}
+*/
+QPushButton {
+    color: red;
+    background: green;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px 20px;
+    /*border-radius: 50px 10px;*/
+    /*border-radius: 10px ;*/
+    text-decoration: underline;
+    /* margin: 10px; */
+}
+#btnOk {
+    color: #FF00FF;
+    font-weight: bold;
+    margin: 10px;
+    padding: 10px;
+    /* text-align: right; */
+}
+QLabel {
+    color: blue;
+    border: 5px solid red;
+    border-bottom: 5px dotted #FF00FF;
+    text-align: center;
+}

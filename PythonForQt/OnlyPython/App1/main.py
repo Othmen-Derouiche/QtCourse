@@ -21,13 +21,15 @@ class MyWindow(QMainWindow):
         self.resize(800, 600)
 
         self.setMaximumSize(1200,1000)
+        self.setMinimumSize(1000,800)
         self.setToolTip("Fuck Me")
 
         # Le type QWidget représente un conteneur de widgets (et il est lui-même un widget).
         # On crée une instance que l'on va mettre au centre de la fenêtre.
         centralArea = QWidget()
         # On lui met une couleur d'arrière-plan, histoire de bien le voir.
-        centralArea.setStyleSheet("background: #d7ebea")
+        #centralArea.setStyleSheet("background: #d7ebea")
+        centralArea.setObjectName("centralArea")
         # On injecte ce widget en tant que zone centrale.
         self.setCentralWidget(centralArea)
 
@@ -51,11 +53,26 @@ class MyWindow(QMainWindow):
         lcd.display(1234)
         lcd.setGeometry(10, 220, 300, 70)
 
-        label = QLabel("This is a label", centralArea)
+        label = QLabel("A label with <b style='color: red'>HTML</b> text" , centralArea)
         label.setGeometry(320, 10, 270, 30)
+
+        # On définit ici notre lien (un QLabel avec un tag HTML de lien).
+        labelHelp = QLabel("<a href='https://koor.fr'>Obtenir l'aide en ligne</a>", centralArea)
+        labelHelp.setStyleSheet("font-size: 20px;")
+        labelHelp.setGeometry(20, 100, 200, 30)
 
         button = QPushButton("This is a button", centralArea)
         button.setGeometry(320, 50, 270, 30)
+        button.setToolTip("""<b>Qt</b> is <u>very</u> <i>Good</i> 
+                              <hr/>
+                              <ul>
+                                  <li>First item</li>
+                                  <li>Second item</li>
+                                  <li style='color:red'>Last item</li>
+                              </ul>
+                              <br/> 
+                              <img src="QtCourse/icons/zoom_in.png" />
+                              """)
         # On connecte le signal clicked exposé par le bouton au slot dateSelected.
         button.clicked.connect(self.buttonClicked)
 
@@ -78,6 +95,15 @@ class MyWindow(QMainWindow):
         progress = QProgressBar(centralArea)
         progress.setValue(50)
         progress.setGeometry(320, 260, 270, 30)
+
+        btnOk = QPushButton("Ok", centralArea)
+        #btnOk.setStyleSheet("background: green; color: white; font-size: bold;")
+        btnOk.setGeometry(360, 500, 100, 60)
+        btnOk.setObjectName("btnOk")
+
+        btnCancel = QPushButton("Cancel", centralArea)
+        btnCancel.setStyleSheet("background: red; color: green;") # code qss embarqué dans le code python
+        btnCancel.setGeometry(480, 500, 100, 40)
 
     @Slot()
     def dateSelected(self):
