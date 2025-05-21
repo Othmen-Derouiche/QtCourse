@@ -5,7 +5,7 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
 from PySide6.QtCore import QUrl
 from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
 
-
+API_KEY = "sk_CpxpzLhTngcdQgCGC3dH0qkEYSGHN"
 class BenchlingApiClient(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -19,14 +19,14 @@ class BenchlingApiClient(QMainWindow):
 
         # API URL input
         self.url_label = QLabel("API URL:")
-        self.url_input = QLineEdit("https://faircraft.benchling.com/api/v2/projects?pageSize=50&sort=createdAt")
+        self.url_input = QLineEdit("https://faircraft.benchling.com/api/v2/entries?pageSize=3&sort=modifiedAt%3Adesc&name=test_API") # request URL
         layout.addWidget(self.url_label)
         layout.addWidget(self.url_input)
 
         # Authorization token input
-        self.token_label = QLabel("Authorization Token:")
-        self.token_input = QLineEdit()
-        self.token_input.setPlaceholderText("sk_CpxpzLhTngcdQgCGC3dH0qkEYSGHN")
+        self.token_label = QLabel("API KEY:")
+        self.token_input = QLineEdit(API_KEY)
+        self.token_input.setPlaceholderText("Hello")
         self.token_input.setEchoMode(QLineEdit.Password)
         layout.addWidget(self.token_label)
         layout.addWidget(self.token_input)
@@ -51,7 +51,7 @@ class BenchlingApiClient(QMainWindow):
         self.network_manager = QNetworkAccessManager(self)
 
         # Set default token (optional - remove in production)
-        self.token_input.setText("sk_CpxpzLhTngcdQgCGC3dH0qkEYSGHN")
+        self.token_input.setText(API_KEY)
 
     def send_request(self):
         url = self.url_input.text().strip()
@@ -70,7 +70,7 @@ class BenchlingApiClient(QMainWindow):
         # Create request
         request = QNetworkRequest(QUrl(url))
         request.setRawHeader(b"accept", b"application/json")
-        request.setRawHeader(b"Authorization", f"Bearer {token}".encode())
+        request.setRawHeader(b"Authorization", "f{API_KEY}".encode()) #f"Bearer {token}".encode()
 
         self.status_label.setText("Sending request...")
         self.response_output.clear()
