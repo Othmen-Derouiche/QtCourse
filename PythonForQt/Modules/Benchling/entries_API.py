@@ -1,107 +1,96 @@
-import sys
-import json
-from PySide6.QtWidgets import (QApplication, QMainWindow, QWidget, QVBoxLayout,
-                               QPushButton, QTextEdit, QLabel, QLineEdit)
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QLineEdit, QPushButton, QTextEdit
+from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest
 from PySide6.QtCore import QUrl
-from PySide6.QtNetwork import QNetworkAccessManager, QNetworkRequest, QNetworkReply
+import sys
+import base64
 
 API_KEY = "sk_CpxpzLhTngcdQgCGC3dH0qkEYSGHN"
-class BenchlingApiClient(QMainWindow):
+
+API_URL1 = "https://faircraft.benchling.com/api/v2/entries" #get list of entries
+API_URL2 = "https://faircraft.benchling.com/api/v2/entries?pageSize=2&sort=createdAt"
+API_URL3 = ""
+API_URL4 = ""
+
+projet_API_ID = ""
+result_table_API_ID = "assaysch_sIyBpyet"
+
+class APIClient(QMainWindow):
     def __init__(self):
         super().__init__()
+
         self.setWindowTitle("Benchling API Client")
-        self.setGeometry(100, 100, 800, 600)
 
-        # Create central widget and layout
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
-        layout = QVBoxLayout(central_widget)
+        # UI elements
+        self.url_input = QLineEdit()
+        self.url_input.setPlaceholderText("Enter API URL")
 
-        # API URL input
-        self.url_label = QLabel("API URL:")
-        self.url_input = QLineEdit("https://faircraft.benchling.com/api/v2/entries?pageSize=3&sort=modifiedAt%3Adesc&name=test_API") # request URL
-        layout.addWidget(self.url_label)
-        layout.addWidget(self.url_input)
-
-        # Authorization token input
-        self.token_label = QLabel("API KEY:")
-        self.token_input = QLineEdit(API_KEY)
-        self.token_input.setPlaceholderText("Hello")
+        self.token_input = QLineEdit()
+        self.token_input.setPlaceholderText("Enter API Key ")
         self.token_input.setEchoMode(QLineEdit.Password)
-        layout.addWidget(self.token_label)
-        layout.addWidget(self.token_input)
 
-        # Button to send request
-        self.send_button = QPushButton("Send GET Request")
+        self.send_button = QPushButton("Send Request")
         self.send_button.clicked.connect(self.send_request)
-        layout.addWidget(self.send_button)
 
-        # Response display
-        self.response_label = QLabel("Response:")
+        self.status_label = QLabel("Ready")
         self.response_output = QTextEdit()
         self.response_output.setReadOnly(True)
-        layout.addWidget(self.response_label)
+
+        # Layout
+        layout = QVBoxLayout()
+        layout.addWidget(QLabel("Benchling API URL:"))
+        layout.addWidget(self.url_input)
+        layout.addWidget(QLabel("API Key:"))
+        layout.addWidget(self.token_input)
+        layout.addWidget(self.send_button)
+        layout.addWidget(self.status_label)
+        layout.addWidget(QLabel("Response:"))
         layout.addWidget(self.response_output)
 
-        # Status label
-        self.status_label = QLabel("Ready")
-        layout.addWidget(self.status_label)
+        central_widget = QWidget()
+        central_widget.setLayout(layout)
+        self.setCentralWidget(central_widget)
 
-        # Network manager
-        self.network_manager = QNetworkAccessManager(self)
-
-        # Set default token (optional - remove in production)
-        self.token_input.setText(API_KEY)
+        self.network_manager = QNetworkAccessManager()
 
     def send_request(self):
         url = self.url_input.text().strip()
-        token = self.token_input.text().strip()
-        print(url)
-        print(f"Bearer {token}".encode())
+        api_key = self.token_input.text().strip()
 
         if not url:
             self.status_label.setText("Error: URL is required")
             return
-
-        if not token:
-            self.status_label.setText("Error: Authorization token is required")
+        if not api_key:
+            self.status_label.setText("Error: API Key is required")
             return
 
-        # Create request
+        # Encode API key as Basic Auth header (API_KEY + colon)
+        credentials = f"{api_key}:".encode("utf-8")
+        base64_credentials = base64.b64encode(credentials).decode("utf-8")
+
         request = QNetworkRequest(QUrl(url))
-        request.setRawHeader(b"accept", b"application/json")
-        request.setRawHeader(b"Authorization", "f{API_KEY}".encode()) #f"Bearer {token}".encode()
+        request.setRawHeader(b"Accept", b"application/json")
+        request.setRawHeader(b"Authorization", f"Basic {base64_credentials}".encode())
 
         self.status_label.setText("Sending request...")
         self.response_output.clear()
 
-        # Send GET request
-        self.network_manager.get(request).finished.connect(self.handle_response)
+        reply = self.network_manager.get(request)
+        reply.finished.connect(lambda: self.handle_response(reply))
 
-    def handle_response(self):
-        reply = self.sender()
-
-        if reply.error() == QNetworkReply.NoError:
-            # Read and format the response
-            data = reply.readAll().data()
-            try:
-                json_data = json.loads(data)
-                formatted_response = json.dumps(json_data, indent=2)
-                self.response_output.setPlainText(formatted_response)
-                self.status_label.setText("Request successful")
-            except json.JSONDecodeError:
-                self.response_output.setPlainText(data.decode())
-                self.status_label.setText("Request successful (non-JSON response)")
+    def handle_response(self, reply):
+        if reply.error():
+            self.status_label.setText(f"Error: {reply.errorString()}")
+            response_data = reply.readAll().data().decode()
         else:
-            error_message = f"Error: {reply.errorString()}"
-            self.response_output.setPlainText(error_message)
-            self.status_label.setText("Request failed")
+            self.status_label.setText("Request successful")
+            response_data = reply.readAll().data().decode()
 
-        reply.deleteLater()
+        self.response_output.setPlainText(response_data)
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = BenchlingApiClient()
+    window = APIClient()
+    window.resize(800, 600)
     window.show()
     sys.exit(app.exec())
