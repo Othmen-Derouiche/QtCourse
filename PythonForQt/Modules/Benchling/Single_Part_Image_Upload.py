@@ -4,16 +4,15 @@ import requests
 from io import BytesIO
 from PIL import Image
 
-# Change to your API Key
-api_key = 'sk_CpxpzLhTngcdQgCGC3dH0qkEYSGHN'
 
-# Change to your tenant
+api_key = 'sk_CpxpzLhTngcdQgCGC3dH0qkEYSGHN'
+# tenant
 tenant = "https://faircraft.benchling.com"
 
 if __name__ == '__main__':
 
     # Load image from a file path
-    image_path = "img.png"
+    image_path = "data/img.png"
     image = Image.open(image_path)
 
     # Convert image to binary format in memory
