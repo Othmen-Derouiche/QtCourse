@@ -7,7 +7,7 @@ import base64
 API_KEY = "sk_CpxpzLhTngcdQgCGC3dH0qkEYSGHN"
 
 API_URL1 = "https://faircraft.benchling.com/api/v2/entries" #get list of entries
-API_URL2 = "https://faircraft.benchling.com/api/v2/entries?pageSize=2&sort=createdAt"
+API_URL2 = "https://faircraft.benchling.com/api/v2/entries?pageSize=2&sort=createdAt" #get entries with filter 
 API_URL3 = ""
 API_URL4 = ""
 

@@ -6,8 +6,7 @@ from PIL import Image
 
 
 api_key = 'sk_CpxpzLhTngcdQgCGC3dH0qkEYSGHN'
-# tenant
-tenant = "https://faircraft.benchling.com"
+tenant = "https://faircraft.benchling.com" # tenant
 
 if __name__ == '__main__':
 
