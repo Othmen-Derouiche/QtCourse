@@ -3,11 +3,12 @@
 import csv
 import json
 import sys
-
-
 import requests
 
-
+API_KEY = 'sk_CpxpzLhTngcdQgCGC3dH0qkEYSGHN'
+DOMAIN = "faircraft.benchling.com" # tenant
+result_schema_id =
+run_schema_id =
 def api_get(domain, api_key, path):
     url = "https://{}/api/v2/{}".format(domain, path)
     rv = requests.get(url, auth=(api_key, ""))
@@ -79,6 +80,7 @@ def main(domain, api_key, run_schema_id, result_schema_id):
                     # The keys on the left must match the field name in Benchling
                     # The keys on the right (being passed into csv_result) must match the column headings
                     # in your .csv file
+
                     "fields": {
                         "run": run_id,
                         "sample": csv_result["Sample"],
