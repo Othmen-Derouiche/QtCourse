@@ -155,6 +155,7 @@ class DefectDetector(QObject):
 
 
 if __name__ == "__main__":
+
     app = QApplication(sys.argv)
 
     # Create the detector instance
@@ -164,8 +165,9 @@ if __name__ == "__main__":
     engine = QQmlApplicationEngine()
     engine.rootContext().setContextProperty("detector", detector)
 
-    # Load the QML file
-    engine.load("Main.qml")
+    # Add the current directory to the import paths and load the main module.
+    engine.addImportPath(sys.path[0])
+    engine.loadFromModule("App", "Main")
 
     if not engine.rootObjects():
         sys.exit(-1)

@@ -3,6 +3,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Window 2.15
 import QtQuick.Shapes 1.15
+import Qt.labs.platform 1.1 as Platform
 
 ApplicationWindow {
     id: mainWindow
@@ -12,6 +13,7 @@ ApplicationWindow {
     minimumWidth: 800
     minimumHeight: 600
     color: "#f0f0f0"
+    visible: true
 
     // Title bar
     Rectangle {
@@ -362,32 +364,21 @@ ApplicationWindow {
                     Repeater {
                         model: detector.defects
 
-                        Shape {
+                        Rectangle {
                             x: modelData.x * zoomSlider.value
                             y: modelData.y * zoomSlider.value
                             width: modelData.width * zoomSlider.value
                             height: modelData.height * zoomSlider.value
-
-                            ShapePath {
-                                strokeWidth: 2
-                                strokeColor: {
-                                    if (modelData.severity === "Critical") return "#ff0000";
-                                    if (modelData.severity === "Medium") return "#ff9900";
-                                    return "#ffcc00";
-                                }
-                                strokeStyle: ShapePath.DashLine
-                                dashPattern: [5, 5]
-                                fillColor: "transparent"
-                                startX: 0; startY: 0
-                                PathLine { x: width; y: 0 }
-                                PathLine { x: width; y: height }
-                                PathLine { x: 0; y: height }
-                                PathLine { x: 0; y: 0 }
+                            color: "transparent"
+                            border.color: {
+                                if (modelData.severity === "Critical") return "#ff0000";
+                                if (modelData.severity === "Medium") return "#ff9900";
+                                return "#ffcc00";
                             }
+                            border.width: 2
 
                             Text {
-                                x: width / 2 - 5
-                                y: height / 2 - 7
+                                anchors.centerIn: parent
                                 text: "X"
                                 color: "#ff0000"
                                 font.bold: true
@@ -411,13 +402,14 @@ ApplicationWindow {
                                 }
                             }
 
-                            Line {
-                                x1: width
-                                y1: height / 2
-                                x2: width + 5
-                                y2: 0
-                                strokeColor: "#ff0000"
-                                strokeWidth: 1
+                            Shape {
+                                ShapePath {
+                                    strokeWidth: 1
+                                    strokeColor: "#ff0000"
+                                    startX: width
+                                    startY: height / 2
+                                    PathLine { x: width + 5; y: 0 }
+                                }
                             }
                         }
                     }
@@ -492,56 +484,88 @@ ApplicationWindow {
                         }
                     }
 
-                    TableView {
+                    ListView {
                         id: resultsTable
                         Layout.fillWidth: true
                         Layout.fillHeight: true
                         model: detector.defects
                         clip: true
-
-                        columnWidthProvider: function(column) {
-                            if (column === 0) return 50;    // ID
-                            if (column === 1) return 150;   // Defect Type
-                            if (column === 2) return 120;   // Location
-                            if (column === 3) return 80;    // Size
-                            if (column === 4) return 90;    // Confidence
-                            if (column === 5) return 90;    // Severity
-                            return 80;                      // Action
-                        }
-
                         delegate: Rectangle {
-                            implicitHeight: 25
-                            color: row % 2 ? "#f9f9f9" : "white"
+                            width: resultsTable.width
+                            height: 25
+                            color: index % 2 ? "#f9f9f9" : "white"
                             border.color: "#d0d0d0"
                             border.width: 1
 
-                            Text {
-                                anchors.left: parent.left
-                                anchors.leftMargin: 5
-                                anchors.verticalCenter: parent.verticalCenter
-                                text: {
-                                    if (column === 0) return modelData.id;
-                                    if (column === 1) return modelData.type;
-                                    if (column === 2) return "X: " + modelData.x + ", Y: " + modelData.y;
-                                    if (column === 3) return modelData.width + " x " + modelData.height;
-                                    if (column === 4) return modelData.confidence + "%";
-                                    if (column === 5) return modelData.severity;
-                                    return "";
-                                }
-                                color: column === 5 ?
-                                    (modelData.severity === "Critical" ? "#ff0000" :
-                                     modelData.severity === "Medium" ? "#ff9900" : "#ffcc00") :
-                                    "#333333"
-                                font.pixelSize: 12
-                            }
+                            Row {
+                                anchors.fill: parent
+                                spacing: 0
 
-                            Button {
-                                visible: column === 6
-                                anchors.centerIn: parent
-                                width: 70
-                                height: 18
-                                text: "Details"
-                                onClicked: defectDetailsDialog.showDefect(modelData)
+                                Text {
+                                    width: 50
+                                    text: modelData.id
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    leftPadding: 5
+                                    color: "#333333"
+                                    font.pixelSize: 12
+                                }
+
+                                Text {
+                                    width: 150
+                                    text: modelData.type
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    leftPadding: 5
+                                    color: "#333333"
+                                    font.pixelSize: 12
+                                }
+
+                                Text {
+                                    width: 120
+                                    text: "X: " + modelData.x + ", Y: " + modelData.y
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    leftPadding: 5
+                                    color: "#333333"
+                                    font.pixelSize: 12
+                                }
+
+                                Text {
+                                    width: 80
+                                    text: modelData.width + " x " + modelData.height
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    leftPadding: 5
+                                    color: "#333333"
+                                    font.pixelSize: 12
+                                }
+
+                                Text {
+                                    width: 90
+                                    text: modelData.confidence + "%"
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    leftPadding: 5
+                                    color: "#333333"
+                                    font.pixelSize: 12
+                                }
+
+                                Text {
+                                    width: 90
+                                    text: modelData.severity
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    leftPadding: 5
+                                    color: {
+                                        if (modelData.severity === "Critical") return "#ff0000";
+                                        if (modelData.severity === "Medium") return "#ff9900";
+                                        return "#ffcc00";
+                                    }
+                                    font.pixelSize: 12
+                                }
+
+                                Button {
+                                    width: 80
+                                    height: 18
+                                    text: "Details"
+                                    anchors.verticalCenter: parent.verticalCenter
+                                    onClicked: defectDetailsDialog.showDefect(modelData)
+                                }
                             }
                         }
                     }
@@ -567,7 +591,7 @@ ApplicationWindow {
                             }
 
                             Text {
-                                text: "Critical: " //+ (detector.defects.filter(d => d.severity === "Critical").length
+                                text: "Critical: " + (detector.defects.filter(d => d.severity === "Critical").length)
                                 font.bold: true
                                 font.pixelSize: 12
                                 color: "#333333"
@@ -575,7 +599,7 @@ ApplicationWindow {
                             }
 
                             Text {
-                                text: "Medium: " //+ (detector.defects.filter(d => d.severity === "Medium").length
+                                text: "Medium: " + (detector.defects.filter(d => d.severity === "Medium").length)
                                 font.bold: true
                                 font.pixelSize: 12
                                 color: "#333333"
@@ -583,7 +607,7 @@ ApplicationWindow {
                             }
 
                             Text {
-                                text: "Low: " //+ (detector.defects.filter(d => d.severity === "Low").length
+                                text: "Low: " + (detector.defects.filter(d => d.severity === "Low").length)
                                 font.bold: true
                                 font.pixelSize: 12
                                 color: "#333333"
@@ -909,45 +933,14 @@ ApplicationWindow {
     }
 
     // File dialog
-    FileDialog {
+    Platform.FileDialog {
         id: fileDialog
         title: "Select PCB Image"
         nameFilters: ["Image files (*.jpg *.jpeg *.png *.bmp)"]
-        onAccepted: detector.loadImage(fileDialog.fileUrl.toString().replace("file:///", ""))
+        onAccepted: detector.loadImage(fileDialog.file.toString())
     }
 
     // Defect details dialog
-    DefectDetailsDialog {
-        id: defectDetailsDialog
-    }
-}
-
-// Custom components
-Line {
-    id: line
-    property color strokeColor: "black"
-    property real strokeWidth: 1
-    property real x1: 0
-    property real y1: 0
-    property real x2: 100
-    property real y2: 100
-
-    Shape {
-        anchors.fill: parent
-        ShapePath {
-            strokeWidth: line.strokeWidth
-            strokeColor: line.strokeColor
-            startX: line.x1
-            startY: line.y1
-            PathLine { x: line.x2; y: line.y2 }
-        }
-    }
-}
-
-// Defect details dialog component
-Component {
-    id: defectDetailsDialogComponent
-
     Dialog {
         id: defectDetailsDialog
         property var selectedDefect: null
