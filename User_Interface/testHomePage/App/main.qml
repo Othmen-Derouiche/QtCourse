@@ -14,12 +14,11 @@ Window {
     color: "transparent"
     flags: Qt.Window  //Qt.FramelessWindowHint |
 
-    // Background gradient
-
+    /********************  Background Image  ********************/ 
     Image {
         id: bgImage
         anchors.fill: parent
-        source: "file:///C:/Users/othme/PycharmProjects/QtCourse/User_Interface/testHomePage/App/Assets/faircraft.png"
+        source: "./Assets/faircraft.png"
         fillMode: Image.PreserveAspectCrop
         opacity: 0.5 // Adjust opacity as needed
         visible: true  // Explicitly set
@@ -37,6 +36,7 @@ Window {
         }
 
     }
+/*
     // Method 1 : Overlay Gradient on Top of the Image
     Rectangle {
     anchors.fill: parent
@@ -47,8 +47,9 @@ Window {
     }
     opacity: 0.4 // Adjust to control how much the gradient affects the image
 }
+*/
     // Method 2 : Blend Gradient with the Image Using BlendMode
-    /*
+/*
     Rectangle {
     anchors.fill: parent
     gradient: Gradient {
@@ -62,9 +63,9 @@ Window {
     }
 }
 
-     */
+*/
     // Method 3 : Use the Gradient as a Mask
-    /*
+/*    
     Rectangle {
     anchors.fill: parent
     gradient: Gradient {
@@ -88,9 +89,7 @@ Window {
         "
     }
 }
-
-     */
-
+*/
 
     // Animated pattern background
     Item {
@@ -111,7 +110,7 @@ Window {
                     for (var y = 0; y < height; y += 60) {
                         ctx.beginPath()
                         ctx.arc(x + 15, y + 15, 2, 0, Math.PI * 2)
-                        ctx.fillStyle = "#00ff88"
+                        ctx.fillStyle = "#74033e"
                         ctx.fill()
                     }
                 }
@@ -184,7 +183,7 @@ Window {
                     ctx.beginPath()
                     ctx.moveTo(0, y)
                     ctx.lineTo(width, y)
-                    ctx.strokeStyle = "#3000ff88"
+                    ctx.strokeStyle = "#f1e3667d"
                     ctx.lineWidth = 2
                     ctx.stroke()
                 }
@@ -194,7 +193,7 @@ Window {
                     ctx.beginPath()
                     ctx.moveTo(x, 0)
                     ctx.lineTo(x, height)
-                    ctx.strokeStyle = "#3000ff88"
+                    ctx.strokeStyle = "#f1e3667d"
                     ctx.lineWidth = 2
                     ctx.stroke()
                 }
@@ -206,8 +205,8 @@ Window {
         SequentialAnimation on opacity {
             loops: Animation.Infinite
             running: true
-            NumberAnimation { from: 0.3; to: 0.6; duration: 3000; easing.type: Easing.InOutQuad }
-            NumberAnimation { from: 0.6; to: 0.3; duration: 3000; easing.type: Easing.InOutQuad }
+            NumberAnimation { from: 0.1; to: 0.3; duration: 3000; easing.type: Easing.InOutQuad }
+            NumberAnimation { from: 0.3; to: 0.1; duration: 3000; easing.type: Easing.InOutQuad }
         }
     }
 
@@ -260,6 +259,7 @@ Window {
             columnSpacing: 30
             rowSpacing: 30
             anchors.horizontalCenter: parent.horizontalCenter
+            //Layout.alignment : parent.horizontalCenter
 
             // Menu items
             Repeater {
@@ -278,8 +278,8 @@ Window {
                     //Layout.fillWidth: true
                     //Layout.fillHeight: true
                     radius: 20
-                    color: Qt.rgba(1, 1, 1, 0.1)
-                    border.color: Qt.rgba(1, 1, 1, 0.2)
+                    color: Qt.rgba(1, 1, 1, 0.3)
+                    border.color: Qt.rgba(1, 1, 1, 0.3)
                     border.width: 1
 
                     // Hover effect
