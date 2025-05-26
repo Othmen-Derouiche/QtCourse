@@ -1,11 +1,11 @@
 
 #centralArea {
-    background: gray url("img.png") no-repeat center;
+    background: gray url("faircraft.png") no-repeat center;
     /*min-width: 800px;*/
 }
 /*
 #centralArea {
-    background-image: url("img.png");
+    background-image: url("faircraft.png");
     background-repeat: no-repeat;
     background-position: center;
     background-origin: content;

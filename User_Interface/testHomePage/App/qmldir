@@ -1,0 +1,4 @@
+module App
+main 1.0 main.qml
+main1 2.0 main1.qml
+

@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="900" height="600" fill="#f0f0f0"/>
+  
+  <!-- Window frame -->
+  <rect x="10" y="10" width="880" height="580" rx="5" fill="#ffffff" stroke="#cccccc" stroke-width="1"/>
+  
+  <!-- Title bar -->
+  <rect x="10" y="10" width="880" height="30" rx="5" fill="#3c3c3c"/>
+  <text x="25" y="30" font-family="Arial" font-size="14" fill="white">Scaffold Defect Detection and Segmentation Tool</text>
+  <circle cx="870" cy="25" r="8" fill="#ff6058"/> <!-- Close button -->
+  <circle cx="845" cy="25" r="8" fill="#ffbc35"/> <!-- Minimize button -->
+  <circle cx="820" cy="25" r="8" fill="#28ca42"/> <!-- Maximize button -->
+  
+  <!-- Top toolbar -->
+  <rect x="10" y="40" width="880" height="40" fill="#f5f5f5"/>
+  
+  <!-- Toolbar buttons -->
+  <rect x="20" y="45" width="80" height="30" rx="3" fill="#4285f4"/>
+  <text x="35" y="65" font-family="Arial" font-size="12" fill="white">Load Image</text>
+  
+  <rect x="110" y="45" width="80" height="30" rx="3" fill="#4285f4"/>
+  <text x="127" y="65" font-family="Arial" font-size="12" fill="white">Settings</text>
+  
+  <rect x="200" y="45" width="100" height="30" rx="3" fill="#4285f4"/>
+  <text x="208" y="65" font-family="Arial" font-size="12" fill="white">Export Results</text>
+  
+  <rect x="310" y="45" width="90" height="30" rx="3" fill="#4285f4"/>
+  <text x="322" y="65" font-family="Arial" font-size="12" fill="white">Batch Mode</text>
+  
+  <rect x="410" y="45" width="120" height="30" rx="3" fill="#4285f4"/>
+  <text x="417" y="65" font-family="Arial" font-size="12" fill="white">Preprocess Image</text>
+  
+  <rect x="810" y="45" width="70" height="30" rx="3" fill="#4285f4"/>
+  <text x="830" y="65" font-family="Arial" font-size="12" fill="white">Help</text>
+  
+  <!-- Main layout -->
+  <rect x="15" y="85" width="200" height="500" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/> <!-- Left panel -->
+  <rect x="220" y="85" width="460" height="385" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/> <!-- Main view -->
+  <rect x="220" y="475" width="460" height="110" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/> <!-- Console/log area -->
+  <rect x="685" y="85" width="200" height="500" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/> <!-- Right panel -->
+  
+  <!-- Left panel content -->
+  <text x="25" y="105" font-family="Arial" font-size="14" font-weight="bold" fill="#333333">Model Controls</text>
+  
+  <!-- Model selection section -->
+  <rect x="25" y="115" width="180" height="200" rx="3" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  
+  <text x="35" y="135" font-family="Arial" font-size="12" fill="#333333">Detection Model:</text>
+  <rect x="35" y="140" width="160" height="25" rx="3" fill="#ffffff" stroke="#cccccc" stroke-width="1"/>
+  <text x="50" y="157" font-family="Arial" font-size="12" fill="#333333">YOLO</text>
+  <polygon points="185,150 190,157 180,157" fill="#333333"/>
+  
+  <text x="35" y="180" font-family="Arial" font-size="12" fill="#333333">Detection Mode:</text>
+  <rect x="35" y="185" width="160" height="25" rx="3" fill="#ffffff" stroke="#cccccc" stroke-width="1"/>
+  <text x="50" y="202" font-family="Arial" font-size="12" fill="#333333">V4.2.3</text>
+  <polygon points="185,195 190,202 180,202" fill="#333333"/>
+  
+  <text x="35" y="225" font-family="Arial" font-size="12" fill="#333333">Scaffold Type:</text>
+  <rect x="35" y="230" width="160" height="25" rx="3" fill="#ffffff" stroke="#cccccc" stroke-width="1"/>
+  <text x="50" y="247" font-family="Arial" font-size="12" fill="#333333">MP (Macroporous)</text>
+  <polygon points="185,240 190,247 180,247" fill="#333333"/>
+  
+  <text x="35" y="270" font-family="Arial" font-size="12" fill="#333333">Defect Classes:</text>
+  
+  <!-- Checkbox for defect classes based on V4.2.3 -->
+  <rect x="35" y="275" width="15" height="15" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+  <text x="55" y="287" font-family="Arial" font-size="11" fill="#333333">holes</text>
+  <text x="840" y="320" font-family="Arial" font-size="14" fill="#4285f4">✓</text>
+  
+  <rect x="95" y="275" width="15" height="15" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+  <text x="115" y="287" font-family="Arial" font-size="11" fill="#333333">scars</text>
+  <text x="840" y="320" font-family="Arial" font-size="14" fill="#4285f4">✓</text>
+  
+  <rect x="155" y="275" width="15" height="15" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+  <text x="175" y="287" font-family="Arial" font-size="11" fill="#333333">solid_grain</text>
+  <text x="840" y="320" font-family="Arial" font-size="14" fill="#4285f4">✓</text>
+  
+  <!-- Thresholds section -->
+  <text x="25" y="325" font-family="Arial" font-size="14" font-weight="bold" fill="#333333">Thresholds</text>
+  <rect x="25" y="335" width="180" height="90" rx="3" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  
+  <text x="35" y="355" font-family="Arial" font-size="12" fill="#333333">Confidence:</text>
+  <rect x="115" y="345" width="80" height="20" rx="3" fill="#ffffff" stroke="#cccccc" stroke-width="1"/>
+  <text x="145" y="360" font-family="Arial" font-size="12" fill="#333333">0.75</text>
+  
+  <text x="35" y="385" font-family="Arial" font-size="12" fill="#333333">IoU:</text>
+  <rect x="115" y="375" width="80" height="20" rx="3" fill="#ffffff" stroke="#cccccc" stroke-width="1"/>
+  <text x="145" y="390" font-family="Arial" font-size="12" fill="#333333">0.5</text>
+  
+  <text x="35" y="415" font-family="Arial" font-size="12" fill="#333333">NMS:</text>
+  <rect x="115" y="405" width="80" height="20" rx="3" fill="#ffffff" stroke="#cccccc" stroke-width="1"/>
+  <text x="145" y="420" font-family="Arial" font-size="12" fill="#333333">0.45</text>
+  
+  <!-- Display Options -->
+  <text x="25" y="445" font-family="Arial" font-size="14" font-weight="bold" fill="#333333">Display Options</text>
+  <rect x="25" y="455" width="180" height="90" rx="3" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  
+  <text x="35" y="475" font-family="Arial" font-size="12" fill="#333333">Show:</text>
+  
+  <rect x="45" y="485" width="15" height="15" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+  <text x="37" y="487" font-family="Arial" font-size="10" fill="#4285f4">✓</text>
+  <text x="65" y="497" font-family="Arial" font-size="12" fill="#333333">Bounding Box</text>
+  
+  <rect x="45" y="510" width="15" height="15" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+  <text x="37" y="512" font-family="Arial" font-size="10" fill="#4285f4">✓</text>
+  <text x="65" y="522" font-family="Arial" font-size="12" fill="#333333">Segmentation Mask</text>
+  
+  <rect x="45" y="535" width="15" height="15" fill="#ffffff" stroke="#333333" stroke-width="1"/>
+  <text x="37" y="537" font-family="Arial" font-size="10" fill="#4285f4">✓</text>
+  <text x="65" y="547" font-family="Arial" font-size="12" fill="#333333">Labels</text>
+  
+  <!-- Run Detection Button -->
+  <rect x="25" y="555" width="180" height="40" rx="3" fill="#4CAF50"/>
+  <text x="60" y="580" font-family="Arial" font-size="14" font-weight="bold" fill="white">RUN DETECTION</text>
+  
+  <!-- Main view content -->
+  <text x="230" y="105" font-family="Arial" font-size="14" font-weight="bold" fill="#333333">Image View</text>
+  
+  <!-- Tabs for different views -->
+  <rect x="350" y="88" width="100" height="25" rx="3" fill="#e0e0e0"/>
+  <text x="375" y="105" font-family="Arial" font-size="12" fill="#333333">Original</text>
+  
+  <rect x="455" y="88" width="100" height="25" rx="3" fill="#4285f4"/>
+  <text x="465" y="105" font-family="Arial" font-size="12" fill="white">Detection</text>
+  
+  <rect x="560" y="88" width="110" height="25" rx="3" fill="#e0e0e0"/>
+  <text x="575" y="105" font-family="Arial" font-size="12" fill="#333333">Preprocessed</text>
+  
+  <!-- Sample image with scaffold detection -->
+  <rect x="230" y="115" width="440" height="355" fill="#efefef"/>
+  
+  <!-- Scaffold image with defect detection -->
+  <rect x="240" y="125" width="420" height="335" fill="#dddddd"/>
+  
+  <!-- Zoom indicator in corner -->
+  <rect x="625" y="125" width="35" height="20" rx="3" fill="rgba(255,255,255,0.7)"/>
+  <text x="632" y="139" font-family="Arial" font-size="11" fill="#333333">100%</text>
+  
+  <!-- Scaffold sample with three example defects -->
+  <!-- Base scaffold structure -->
+  <rect x="250" y="135" width="400" height="315" fill="#f5f5f5"/>
+  <path d="M250,135 L650,135 L650,450 L250,450 Z" fill="#e0e0e0"/>
+  
+  <!-- Scaffold texture - gray porous pattern -->
+  <path d="M250,135 L650,135 L650,450 L250,450 Z" fill="none" stroke="#d0d0d0" stroke-width="2"/>
+  
+  <!-- Grid pattern for scaffold -->
+  <path d="M270,135 L270,450 M290,135 L290,450 M310,135 L310,450 M330,135 L330,450 M350,135 L350,450
+           M370,135 L370,450 M390,135 L390,450 M410,135 L410,450 M430,135 L430,450 M450,135 L450,450
+           M470,135 L470,450 M490,135 L490,450 M510,135 L510,450 M530,135 L530,450 M550,135 L550,450
+           M570,135 L570,450 M590,135 L590,450 M610,135 L610,450 M630,135 L630,450"
+        stroke="#d5d5d5" stroke-width="0.5"/>
+  
+  <path d="M250,155 L650,155 M250,175 L650,175 M250,195 L650,195 M250,215 L650,215 M250,235 L650,235
+           M250,255 L650,255 M250,275 L650,275 M250,295 L650,295 M250,315 L650,315 M250,335 L650,335
+           M250,355 L650,355 M250,375 L650,375 M250,395 L650,395 M250,415 L650,415 M250,435 L650,435"
+        stroke="#d5d5d5" stroke-width="0.5"/>
+        
+  <!-- Random small circles representing pores -->
+  <circle cx="285" cy="180" r="3" fill="#c0c0c0"/>
+  <circle cx="320" cy="150" r="2" fill="#c0c0c0"/>
+  <circle cx="355" cy="220" r="3" fill="#c0c0c0"/>
+  <circle cx="390" cy="160" r="2" fill="#c0c0c0"/>
+  <circle cx="425" cy="210" r="2" fill="#c0c0c0"/>
+  <circle cx="460" cy="170" r="3" fill="#c0c0c0"/>
+  <circle cx="495" cy="240" r="2" fill="#c0c0c0"/>
+  <circle cx="530" cy="190" r="3" fill="#c0c0c0"/>
+  <circle cx="565" cy="270" r="2" fill="#c0c0c0"/>
+  <circle cx="600" cy="230" r="3" fill="#c0c0c0"/>
+  <circle cx="280" cy="260" r="2" fill="#c0c0c0"/>
+  <circle cx="315" cy="300" r="3" fill="#c0c0c0"/>
+  <circle cx="350" cy="290" r="2" fill="#c0c0c0"/>
+  <circle cx="385" cy="330" r="3" fill="#c0c0c0"/>
+  <circle cx="420" cy="310" r="2" fill="#c0c0c0"/>
+  <circle cx="455" cy="350" r="3" fill="#c0c0c0"/>
+  <circle cx="490" cy="320" r="2" fill="#c0c0c0"/>
+  <circle cx="525" cy="370" r="3" fill="#c0c0c0"/>
+  <circle cx="560" cy="340" r="2" fill="#c0c0c0"/>
+  <circle cx="595" cy="380" r="3" fill="#c0c0c0"/>
+  <circle cx="275" cy="410" r="2" fill="#c0c0c0"/>
+  <circle cx="310" cy="400" r="3" fill="#c0c0c0"/>
+  <circle cx="345" cy="430" r="2" fill="#c0c0c0"/>
+  <circle cx="380" cy="420" r="3" fill="#c0c0c0"/>
+  <circle cx="415" cy="440" r="2" fill="#c0c0c0"/>
+  <circle cx="450" cy="405" r="3" fill="#c0c0c0"/>
+  <circle cx="485" cy="435" r="2" fill="#c0c0c0"/>
+  <circle cx="520" cy="425" r="3" fill="#c0c0c0"/>
+  <circle cx="555" cy="445" r="2" fill="#c0c0c0"/>
+  <circle cx="590" cy="415" r="3" fill="#c0c0c0"/>
+  
+  <!-- Defect 1: Holes with bounding box and segmentation mask -->
+  <circle cx="340" cy="200" r="20" fill="#ff000040"/>
+  <rect x="320" y="180" width="40" height="40" fill="none" stroke="#ff0000" stroke-width="2"/>
+  <text x="325" y="175" font-family="Arial" font-size="10" fill="#ff0000" font-weight="bold">Hole (0.92)</text>
+  
+  <!-- Defect 2: Scars with bounding box and segmentation mask -->
+  <path d="M500,250 Q510,270 530,260 Q540,250 520,240 Z" fill="#00ff0040" stroke="#00ff00" stroke-width="1"/>
+  <rect x="495" y="235" width="45" height="35" fill="none" stroke="#00ff00" stroke-width="2"/>
+  <text x="495" y="230" font-family="Arial" font-size="10" fill="#00ff00" font-weight="bold">Scar (0.87)</text>
+  
+  <!-- Defect 3: Solid grain with bounding box and segmentation mask -->
+  <rect x="400" y="350" width="60" height="50" fill="#0000ff40"/>
+  <rect x="400" y="350" width="60" height="50" fill="none" stroke="#0000ff" stroke-width="2"/>
+  <text x="400" y="345" font-family="Arial" font-size="10" fill="#0000ff" font-weight="bold">Solid Grain (0.95)</text>
+  
+  <!-- Cursor coordinate tooltip -->
+  <rect x="350" y="260" width="80" height="20" rx="3" fill="rgba(0,0,0,0.7)"/>
+  <text x="355" y="274" font-family="Arial" font-size="10" fill="#ffffff">x:450, y:215</text>
+  
+  <!-- Console/log area content -->
+  <text x="230" y="495" font-family="Arial" font-size="14" font-weight="bold" fill="#333333">Log Output</text>
+  
+  <rect x="230" y="505" width="440" height="80" rx="3" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="240" y="525" font-family="Courier New" font-size="11" fill="#333333">[INFO] System initialized - Model: YOLO for Scaffold V4.2.3 (MP)</text>
+  <text x="240" y="540" font-family="Courier New" font-size="11" fill="#333333">[INFO] Processing image: scaffold_sample_mp_01.jpg (1024x768)</text>
+  <text x="240" y="555" font-family="Courier New" font-size="11" fill="#038003">[SUCCESS] Detection complete - 3 defects found (1 hole, 1 scar, 1 solid_grain)</text>
+  <text x="240" y="570" font-family="Courier New" font-size="11" fill="#333333">[INFO] Total processing time: 253 ms</text>
+  
+  <!-- Right panel content -->
+  <text x="695" y="105" font-family="Arial" font-size="14" font-weight="bold" fill="#333333">Properties &amp; Stats</text>
+  
+  <!-- Image Properties -->
+  <rect x="695" y="115" width="180" height="140" rx="3" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="705" y="135" font-family="Arial" font-size="12" font-weight="bold" fill="#333333">Image Properties</text>
+  
+  <text x="705" y="155" font-family="Arial" font-size="11" fill="#333333">Filename: scaffold_sample_mp_01.jpg</text>
+  <text x="705" y="175" font-family="Arial" font-size="11" fill="#333333">Dimensions: 1024 x 768 px</text>
+  <text x="705" y="195" font-family="Arial" font-size="11" fill="#333333">Size: 1.45 MB</text>
+  <text x="705" y="215" font-family="Arial" font-size="11" fill="#333333">Type: JPEG</text>
+  <text x="705" y="235" font-family="Arial" font-size="11" fill="#333333">Scaffold Type: Macroporous (MP)</text>
+  <text x="705" y="255" font-family="Arial" font-size="11" fill="#333333">Scaffold Version: V4.2.3</text>
+  
+  <!-- Analysis Statistics -->
+  <text x="695" y="275" font-family="Arial" font-size="12" font-weight="bold" fill="#333333">Analysis Statistics</text>
+  <rect x="695" y="285" width="180" height="140" rx="3" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  
+  <text x="705" y="305" font-family="Arial" font-size="11" fill="#333333">Defects Found: 3</text>
+  
+  <rect x="705" y="315" width="160" height="100" fill="#f9f9f9" stroke="#e0e0e0" stroke-width="1"/>
+  
+  <!-- Pie chart showing defect distribution -->
+  <circle cx="745" cy="365" r="40" fill="none" stroke="#cccccc" stroke-width="1"/>
+  
+  <!-- Pie slices for each defect type -->
+  <path d="M745,365 L745,325 A40,40 0 0,1 779,380 z" fill="#ff0000" fill-opacity="0.7"/>
+  <path d="M745,365 L779,380 A40,40 0 0,1 745,405 z" fill="#00ff00" fill-opacity="0.7"/>
+  <path d="M745,365 L745,405 A40,40 0 0,1 711,380 L745,365 L711,350 A40,40 0 0,1 745,325 z" fill="#0000ff" fill-opacity="0.7"/>
+  
+  <text x="795" y="345" font-family="Arial" font-size="10" fill="#333333">Holes: 1 (33%)</text>
+  <rect x="785" y="338" width="10" height="10" fill="#ff0000" fill-opacity="0.7"/>
+  
+  <text x="795" y="365" font-family="Arial" font-size="10" fill="#333333">Scars: 1 (33%)</text>
+  <rect x="785" y="358" width="10" height="10" fill="#00ff00" fill-opacity="0.7"/>
+  
+  <text x="795" y="385" font-family="Arial" font-size="10" fill="#333333">Solid Grain: 1 (33%)</text>
+  <rect x="785" y="378" width="10" height="10" fill="#0000ff" fill-opacity="0.7"/>
+  
+  <!-- Selected Defect Details -->
+  <text x="695" y="445" font-family="Arial" font-size="12" font-weight="bold" fill="#333333">Selected Defect</text>
+  <rect x="695" y="455" width="180" height="130" rx="3" fill="#ffffff" stroke="#e0e0e0" stroke-width="1"/>
+  
+  <text x="705" y="475" font-family="Arial" font-size="11" font-weight="bold" fill="#ff0000">Defect #1: Hole</text>
+  <text x="705" y="495" font-family="Arial" font-size="11" fill="#333333">Confidence: 92%</text>
+  <text x="705" y="515" font-family="Arial" font-size="11" fill="#333333">Size: 1256 px² (4.3%)</text>
+  <text x="705" y="535" font-family="Arial" font-size="11" fill="#333333">Position: x:340, y:200</text>
+  <text x="705" y="555" font-family="Arial" font-size="11" fill="#333333">Bounding Box: 40x40 px</text>
+  <text x="705" y="575" font-family="Arial" font-size="11" fill="#333333">Severity: High</text>
+  
+  <!-- Status bar -->
+  <rect x="15" y="565" width="665" height="20" fill="#f0f0f0" stroke="#e0e0e0" stroke-width="1"/>
+  <text x="25" y="579" font-family="Arial" font-size="11" fill="#333333">Ready | Model: YOLO | Version: V4.2.3 (MP) | GPU: 0.8 GB/8 GB | Processing: 253 ms</text>
+</svg>

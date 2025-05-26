@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shitty Homepage</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0c1445 0%, #1a237e 50%, #3949ab 100%);
+            position: relative;
+        }
+
+        /* Animated background pattern */
+        .bg-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image:
+                radial-gradient(circle at 25% 25%, #00ff88 2px, transparent 2px),
+                radial-gradient(circle at 75% 75%, #ff6b6b 1px, transparent 1px),
+                linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.05) 50%, transparent 60%);
+            background-size: 60px 60px, 40px 40px, 100px 100px;
+            animation: patternMove 20s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(60px) translateY(40px); }
+        }
+
+        /* Circuit board style overlay */
+        .circuit-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(90deg, transparent 48%, rgba(0,255,136,0.3) 49%, rgba(0,255,136,0.3) 51%, transparent 52%),
+                linear-gradient(0deg, transparent 48%, rgba(0,255,136,0.2) 49%, rgba(0,255,136,0.2) 51%, transparent 52%);
+            background-size: 200px 200px, 150px 150px;
+            animation: circuitGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes circuitGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.6; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0,255,136,0.5);
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #b0bec5;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .menu-button {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .menu-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .menu-button:hover::before {
+            left: 100%;
+        }
+
+        .menu-button:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: rgba(0,255,136,0.5);
+        }
+
+        .menu-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #00ff88;
+            filter: drop-shadow(0 0 10px rgba(0,255,136,0.3));
+        }
+
+        .menu-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .menu-description {
+            font-size: 0.9rem;
+            color: #b0bec5;
+            line-height: 1.4;
+        }
+
+        /* Specific colors for each button */
+        .menu-button:nth-child(1) { border-color: rgba(66, 165, 245, 0.3); }
+        .menu-button:nth-child(1) .menu-icon { color: #42a5f5; }
+        .menu-button:nth-child(1):hover { border-color: rgba(66, 165, 245, 0.6); }
+
+        .menu-button:nth-child(2) { border-color: rgba(102, 187, 106, 0.3); }
+        .menu-button:nth-child(2) .menu-icon { color: #66bb6a; }
+        .menu-button:nth-child(2):hover { border-color: rgba(102, 187, 106, 0.6); }
+
+        .menu-button:nth-child(3) { border-color: rgba(255, 167, 38, 0.3); }
+        .menu-button:nth-child(3) .menu-icon { color: #ffa726; }
+        .menu-button:nth-child(3):hover { border-color: rgba(255, 167, 38, 0.6); }
+
+        .menu-button:nth-child(4) { border-color: rgba(171, 71, 188, 0.3); }
+        .menu-button:nth-child(4) .menu-icon { color: #ab47bc; }
+        .menu-button:nth-child(4):hover { border-color: rgba(171, 71, 188, 0.6); }
+
+        .menu-button:nth-child(5) { border-color: rgba(239, 83, 80, 0.3); }
+        .menu-button:nth-child(5) .menu-icon { color: #ef5350; }
+        .menu-button:nth-child(5):hover { border-color: rgba(239, 83, 80, 0.6); }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .version-info {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .menu-button {
+                min-height: 150px;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-pattern"></div>
+    <div class="circuit-overlay"></div>
+
+    <div class="container">
+        <div class="header">
+            <div class="logo">Defect Detection App</div>
+            <div class="subtitle">Shitty Homepage</div>
+        </div>
+
+        <div class="menu-grid">
+            <div class="menu-button">
+                <div class="menu-icon">ℹ️</div>
+                <div class="menu-title">About the Project</div>
+                <div class="menu-description">Learn about our AI-powered defect detection system and its capabilities</div>
+            </div>
+
+            <div class="menu-button">
+                <div class="menu-icon">🖼️</div>
+                <div class="menu-title">Image Processing</div>
+                <div class="menu-description">Upload and preprocess images for defect analysis</div>
+            </div>
+
+            <div class="menu-button">
+                <div class="menu-icon">🔍</div>
+                <div class="menu-title">Detection</div>
+                <div class="menu-description">Run AI models for defect detection and segmentation</div>
+            </div>
+
+            <div class="menu-button">
+                <div class="menu-icon">🔗</div>
+                <div class="menu-title">Benchling Integration</div>
+                <div class="menu-description">Connect and sync with Benchling laboratory platform</div>
+            </div>
+
+            <div class="menu-button">
+                <div class="menu-icon">❓</div>
+                <div class="menu-title">Help</div>
+                <div class="menu-description">Documentation, tutorials, and support resources</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="version-info">
+        Version 1.0.0 | DefectVision AI Suite
+    </div>
+
+    <script>
+        // Add hover sound effect simulation
+        document.querySelectorAll('.menu-button').forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                button.style.animationDelay = Math.random() * 0.1 + 's';
+            });
+        });
+
+        // Add click ripple effect
+        document.querySelectorAll('.menu-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const ripple = document.createElement('div');
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    left: ${x}px;
+                    top: ${y}px;
+                    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+                    border-radius: 50%;
+                    transform: scale(0);
+                    animation: ripple 0.6s linear;
+                    pointer-events: none;
+                `;
+
+                button.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
